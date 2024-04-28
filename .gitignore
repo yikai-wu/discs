@@ -3,3 +3,11 @@ __pycache__/
 results_*/
 storage/
 sco/
+env/
+data/
+*.slurm
+*.out
+discs/results/
+*.tar.gz
+RBM_DATA/
+text_infilling_data/

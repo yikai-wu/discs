@@ -1,0 +1,69 @@
+!!python/object:ml_collections.config_dict.config_dict.ConfigDict
+_convert_dict: true
+_fields:
+  experiment: !!python/object:ml_collections.config_dict.config_dict.ConfigDict
+    _convert_dict: true
+    _fields:
+      batch_size: 100
+      buffer_init: mean
+      buffer_size: 10000
+      chain_length: 100000
+      data_dir: ''
+      dataset: omniglot
+      ema_decay: 0.9999
+      energy_l2: 0.0
+      ess_ratio: 0.5
+      evaluator: ess_eval
+      fig_folder: ''
+      get_additional_metrics: false
+      grad_norm: 5.0
+      img_config: omniglot-64
+      learning_rate: 0.001
+      log_every_steps: 100
+      lr_schedule: constant
+      name: Sampling_Experiment
+      num_models: 1
+      optimizer: adam
+      p_control: 0.0
+      pcd_steps: 1
+      plot_every_steps: 10
+      reinit_freq: 0.0
+      run_parallel: true
+      save_every_steps: 10000
+      save_root: ./discs/results
+      shuffle_buffer_size: 0
+      total_train_steps: 2
+      use_tqdm: false
+      warmup_frac: 0.05
+      weight_decay: 0.0
+    _locked: true
+    _type_safe: true
+  model: !!python/object:ml_collections.config_dict.config_dict.ConfigDict
+    _convert_dict: true
+    _fields:
+      data_path: ''
+      data_root: sco
+      image_shape: !!python/tuple
+      - 28
+      - 28
+      n_channels: 64
+      name: resnet
+      num_categories: 2
+      shape: !!python/tuple
+      - 784
+    _locked: true
+    _type_safe: true
+  sampler: !!python/object:ml_collections.config_dict.config_dict.ConfigDict
+    _convert_dict: true
+    _fields:
+      adaptive: true
+      balancing_fn_type: SQRT
+      name: dlmc
+      reset_z_est: 20
+      schedule_step: 200
+      solver: interpolate
+      target_acceptance_rate: 0.574
+    _locked: true
+    _type_safe: true
+_locked: true
+_type_safe: true

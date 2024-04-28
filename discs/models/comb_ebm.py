@@ -39,6 +39,7 @@ class CombEBM(abstractmodel.AbstractModel):
     return loglikelihood, grad
 
   def evaluate(self, params, x):
+    print(params['mask'])
     return self.forward(params, x) * params['temperature']
 
 

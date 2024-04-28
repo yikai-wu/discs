@@ -25,6 +25,16 @@ def get_graphs(config):
     return maxcut_loader.RandGraphGen(config.model.data_root, config.model)
   elif config.model.graph_type == 'rb':
     return maxclique_loader.RBTestGraphGen(config.model.data_root, config.model)
+  elif config.model.graph_type == 'rbsmall':
+    return mis_loader.RBSmallGraphGen(config.model.data_root, config.model)
+  elif config.model.graph_type == 'rblarge':
+    return mis_loader.RBLargeGraphGen(config.model.data_root, config.model)
+  elif config.model.graph_type == 'ERMISRE':
+    return mis_loader.ERMISREGraphGen(config.model.data_root, config.model)
+  elif config.model.graph_type == 'ERMISAR':
+    return mis_loader.ERMISARGraphGen(config.model.data_root, config.model)
+  elif config.model.graph_type == 'SAT1000':
+    return mis_loader.SAT1000GraphGen(config.model.data_root, config.model)
   elif config.model.graph_type == 'twitter':
     return maxclique_loader.TwitterGraphs(config.model.data_root, config.model)
   elif config.model.graph_type == 'nets':

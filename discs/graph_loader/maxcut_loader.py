@@ -5,7 +5,7 @@ from discs.common import utils
 from discs.graph_loader import common as data_common
 import networkx as nx
 import numpy as np
-import pickle5 as pickle
+import pickle
 
 
 class MaxcutGen(data_common.GraphGenerator):

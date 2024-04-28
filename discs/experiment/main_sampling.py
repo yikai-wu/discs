@@ -14,6 +14,7 @@ _EXPERIMENT_CONFIG = config_flags.DEFINE_config_file(
 )
 _MODEL_CONFIG = config_flags.DEFINE_config_file('model_config')
 _SAMPLER_CONFIG = config_flags.DEFINE_config_file('sampler_config')
+_GRAPH_CONFIG = config_flags.DEFINE_config_file('graph_config')
 _RUN_LOCAL = flags.DEFINE_boolean('run_local', False, 'if runnng local')
 
 
@@ -34,6 +35,7 @@ def get_main_config():
     config.update(_EXPERIMENT_CONFIG.value)
   config.sampler.update(_SAMPLER_CONFIG.value)
   config.model.update(_MODEL_CONFIG.value)
+  config.model.update(_GRAPH_CONFIG.value)
   if config.model.get('graph_type', None):
     graph_config = importlib.import_module(
         'discs.models.configs.%s.%s'

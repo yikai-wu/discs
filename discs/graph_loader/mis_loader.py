@@ -6,7 +6,7 @@ from discs.graph_loader import common as data_common
 import jax.numpy as jnp
 import networkx as nx
 import numpy as np
-import pickle5 as pickle
+import pickle
 from pysat.formula import CNF
 
 
@@ -173,5 +173,227 @@ class SatLibGraphGen(MISGen):
         cnf = CNF(fname)
         g = self.cnf2graph(cnf)
         yield g, 1.0
+      if not repeat:
+        break
+
+class RBTestGraphGen(MISGen):
+  """Generator for RB test graphs."""
+
+  def __init__(self, data_root, model_config):
+    super().__init__()
+    data_folder = os.path.join(data_root, 'RB_test')
+    file_list = []
+    for fname in os.listdir(data_folder):
+      if fname.startswith('RB'):
+        file_list.append(os.path.join(data_folder, fname))
+    self.file_list = sorted(file_list)
+    if (model_config.max_num_nodes > 0 and model_config.max_num_edges > 0 and
+        model_config.num_instances > 0):
+      self._max_num_nodes = model_config.max_num_nodes
+      self._max_num_edges = model_config.max_num_edges
+      self._num_instances = model_config.num_instances
+    else:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g_list = pickle.load(f)
+          for _, g in g_list:
+            self._max_num_nodes = max(self._max_num_nodes, len(g))
+            self._max_num_edges = max(self._max_num_edges, len(g.edges()))
+            self._num_instances += 1
+    print('max num nodes', self.max_num_nodes)
+    print('max num edges', self.max_num_edges)
+    print('num instances', self.num_instances)
+
+  def sample_gen(self, phase, repeat=False):
+    assert phase == 'test'
+    while True:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g_list = pickle.load(f)
+          for obj, g in g_list:
+            yield g, 1.0
+      if not repeat:
+        break
+
+
+class RBSmallGraphGen(MISGen):
+  """Generator for RB test graphs."""
+
+  def __init__(self, data_root, model_config):
+    super().__init__()
+    data_folder = os.path.join(data_root, 'rb200-300')
+    file_list = []
+    for fname in os.listdir(data_folder):
+      if fname.startswith('GR'):
+        file_list.append(os.path.join(data_folder, fname))
+    self.file_list = sorted(file_list)
+    if (model_config.max_num_nodes > 0 and model_config.max_num_edges > 0 and
+        model_config.num_instances > 0):
+      self._max_num_nodes = model_config.max_num_nodes
+      self._max_num_edges = model_config.max_num_edges
+      self._num_instances = model_config.num_instances
+    else:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          self._max_num_nodes = max(self._max_num_nodes, len(g))
+          self._max_num_edges = max(self._max_num_edges, len(g.edges()))
+          self._num_instances += 1
+    print('max num nodes', self.max_num_nodes)
+    print('max num edges', self.max_num_edges)
+    print('num instances', self.num_instances)
+
+  def sample_gen(self, phase, repeat=False):
+    assert phase == 'test'
+    while True:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          yield g, 1.0
+      if not repeat:
+        break
+
+class RBLargeGraphGen(MISGen):
+  """Generator for RB test graphs."""
+
+  def __init__(self, data_root, model_config):
+    super().__init__()
+    data_folder = os.path.join(data_root, 'rb800-1200')
+    file_list = []
+    for fname in os.listdir(data_folder):
+      if fname.startswith('GR'):
+        file_list.append(os.path.join(data_folder, fname))
+    self.file_list = sorted(file_list)
+    if (model_config.max_num_nodes > 0 and model_config.max_num_edges > 0 and
+        model_config.num_instances > 0):
+      self._max_num_nodes = model_config.max_num_nodes
+      self._max_num_edges = model_config.max_num_edges
+      self._num_instances = model_config.num_instances
+    else:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          self._max_num_nodes = max(self._max_num_nodes, len(g))
+          self._max_num_edges = max(self._max_num_edges, len(g.edges()))
+          self._num_instances += 1
+    print('max num nodes', self.max_num_nodes)
+    print('max num edges', self.max_num_edges)
+    print('num instances', self.num_instances)
+
+  def sample_gen(self, phase, repeat=False):
+    assert phase == 'test'
+    while True:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          yield g, 1.0
+      if not repeat:
+        break
+
+class ERMISREGraphGen(MISGen):
+  """Generator for RB test graphs."""
+
+  def __init__(self, data_root, model_config):
+    super().__init__()
+    data_folder = os.path.join(data_root, 'ERMIS_RE')
+    file_list = []
+    for fname in os.listdir(data_folder):
+        file_list.append(os.path.join(data_folder, fname))
+    self.file_list = sorted(file_list)
+    if (model_config.max_num_nodes > 0 and model_config.max_num_edges > 0 and
+        model_config.num_instances > 0):
+      self._max_num_nodes = model_config.max_num_nodes
+      self._max_num_edges = model_config.max_num_edges
+      self._num_instances = model_config.num_instances
+    else:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          self._max_num_nodes = max(self._max_num_nodes, len(g))
+          self._max_num_edges = max(self._max_num_edges, len(g.edges()))
+          self._num_instances += 1
+    print('max num nodes', self.max_num_nodes)
+    print('max num edges', self.max_num_edges)
+    print('num instances', self.num_instances)
+
+  def sample_gen(self, phase, repeat=False):
+    assert phase == 'test'
+    while True:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          yield g, 1.0
+      if not repeat:
+        break
+
+class ERMISARGraphGen(MISGen):
+  """Generator for RB test graphs."""
+
+  def __init__(self, data_root, model_config):
+    super().__init__()
+    data_folder = os.path.join(data_root, 'ERMIS_AR')
+    file_list = []
+    for fname in os.listdir(data_folder):
+        file_list.append(os.path.join(data_folder, fname))
+    self.file_list = sorted(file_list)
+    if (model_config.max_num_nodes > 0 and model_config.max_num_edges > 0 and
+        model_config.num_instances > 0):
+      self._max_num_nodes = model_config.max_num_nodes
+      self._max_num_edges = model_config.max_num_edges
+      self._num_instances = model_config.num_instances
+    else:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          self._max_num_nodes = max(self._max_num_nodes, len(g))
+          self._max_num_edges = max(self._max_num_edges, len(g.edges()))
+          self._num_instances += 1
+    print('max num nodes', self.max_num_nodes)
+    print('max num edges', self.max_num_edges)
+    print('num instances', self.num_instances)
+
+  def sample_gen(self, phase, repeat=False):
+    assert phase == 'test'
+    while True:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          yield g, 1.0
+      if not repeat:
+        break
+
+class SAT1000GraphGen(MISGen):
+  """Generator for RB test graphs."""
+
+  def __init__(self, data_root, model_config):
+    super().__init__()
+    data_folder = os.path.join(data_root, 'SAT1000')
+    file_list = []
+    for fname in os.listdir(data_folder):
+        file_list.append(os.path.join(data_folder, fname))
+    self.file_list = sorted(file_list)
+    if (model_config.max_num_nodes > 0 and model_config.max_num_edges > 0 and
+        model_config.num_instances > 0):
+      self._max_num_nodes = model_config.max_num_nodes
+      self._max_num_edges = model_config.max_num_edges
+      self._num_instances = model_config.num_instances
+    else:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          self._max_num_nodes = max(self._max_num_nodes, len(g))
+          self._max_num_edges = max(self._max_num_edges, len(g.edges()))
+          self._num_instances += 1
+    print('max num nodes', self.max_num_nodes)
+    print('max num edges', self.max_num_edges)
+    print('num instances', self.num_instances)
+
+  def sample_gen(self, phase, repeat=False):
+    assert phase == 'test'
+    while True:
+      for fname in self.file_list:
+        with open(fname, 'rb') as f:
+          g = pickle.load(f)
+          yield g, 1.0
       if not repeat:
         break

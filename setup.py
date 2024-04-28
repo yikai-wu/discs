@@ -22,7 +22,6 @@ setup(
         'optax',
         'python-sat',
         'tensorboard',
-        'pickle5',
         'nltk',
     ],
 )
