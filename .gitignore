@@ -11,3 +11,4 @@ discs/results/
 *.tar.gz
 RBM_DATA/
 text_infilling_data/
+BINARY_EBM/
